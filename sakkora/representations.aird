@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xmi:id="_sJk6gAdXEeaPHfM2tSq2jw" version="10.1.0.201509162000">
+  <semanticResources>homeworkA0OL55.sct</semanticResources>
+  <semanticResources>platform:/plugin/org.yakindu.sct.model.stext/libraries/Primitives.types</semanticResources>
+  <semanticResources>yakindu/homework2java.sgen</semanticResources>
+  <semanticResources>platform:/plugin/org.yakindu.sct.generator.core/library/CoreFeatureTypeLibrary.xmi</semanticResources>
+  <semanticResources>platform:/plugin/org.yakindu.sct.generator.java/library/FeatureTypeLibrary.xmi</semanticResources>
+</viewpoint:DAnalysis>
