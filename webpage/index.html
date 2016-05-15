@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <!-- Minified AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+   
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        
+  </head>
+
+    <body>
+
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <div class="row">
+                <div class="text-center" ng-if="mainDisplay!=-1">
+                    Main: {{mainDisplay}}
+                </div>
+            </div>
+            
+            <div class="row text-center">
+                <span>
+                    White: {{whiteDisplay}}
+                </span>
+                <span>
+                    Black: {{blackDisplay}}
+                </span>
+            </div>
+
+            <div class="row">
+                <div class="text-center">
+                    <button class="btn-primary" ng-click="startButton()">Start</button>
+                    <button style="background-color: black; color: white;"ng-click="blackButton()">Black</button>
+                    <button ng-click="whiteButton()">White</button>
+                    <button class="btn-info" ng-click="modeButton()">Mode</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http, $timeout) {
+
+            (function init() {
+                $http.get("http://localhost:8080/example/rest/app/init")
+                .then(function(response) {
+                    console.log("initialized");
+                });
+            })();
+            
+            $scope.getAll = function() {
+                $http.get("http://localhost:8080/example/rest/app/whiteText")
+                .then(function(response) {
+                    $scope.whiteDisplay = response.data.label;
+                });
+                $http.get("http://localhost:8080/example/rest/app/blackText")
+                .then(function(response) {
+                    $scope.blackDisplay = response.data.label;
+                });
+                $http.get("http://localhost:8080/example/rest/app/main")
+                .then(function(response) {
+                    $scope.mainDisplay = response.data.label;
+                });
+            };
+            
+            $scope.startButton = function() {
+                $http.get("http://localhost:8080/example/rest/app/startButton")
+                .then(function(response) {
+                    console.log("start");
+                });
+                $scope.getAll();
+            };
+            
+            $scope.modeButton = function() {
+                $http.get("http://localhost:8080/example/rest/app/modeButton")
+                .then(function(response) {
+                    console.log("mode");
+                });
+                $scope.getAll();
+            };
+            
+            $scope.blackButton = function() {
+                $http.get("http://localhost:8080/example/rest/app/blackButton")
+                .then(function(response) {
+                    console.log("blackButton");
+                });
+                $scope.getAll();
+            };
+            
+            $scope.whiteButton = function() {
+                $http.get("http://localhost:8080/example/rest/app/whiteButton")
+                .then(function(response) {
+                    console.log("whiteButton");
+                });
+                $scope.getAll();
+            };
+            
+            (function  loopQuery() {
+                $scope.getAll();
+                $timeout(loopQuery, 1000);
+            })();
+        });
+        </script>
+
+    </body>
+</html>
